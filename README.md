@@ -38,66 +38,107 @@ A modern, full-stack Smart Todo app with advanced AI features, import/export, Go
 ### Context History Example 2
 ![Context history 2](frontend/public/screenshot-2025-07-05-00-38-39.png)
 
+## Prerequisites
+- **Python 3.10+** (recommended)
+- **Node.js 18+** and npm/yarn
+- **PostgreSQL** Supabase
+- **Google Gemini API key** (for AI features)
+
 ## Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
 git clone <your-repo-url>
 cd <project-folder>
-
 ```
 
 ### 2. Backend Setup (Django)
-- **Python 3.10+ recommended**
-- Create a virtual environment:
-  ```bash
-  python3 -m venv venv
-  source venv/bin/activate
-  ```
-- Install dependencies:
-  ```bash
-  pip install -r requirements.txt
-  python -m textblob.download_corpora  # For fallback AI
-  ```
-- **Set up your Gemini API key** (Google Generative AI):
-  - Get your key from [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-  - In `core/models.py`, set:
-    ```python
-    GEMINI_AVAILABLE = True
-    GEMINI_API_KEY = "<your-gemini-api-key>"
-    ```
-  - **Do NOT commit your real key to public repos!**
-- Run migrations:
-  ```bash
-  python manage.py migrate
-  ```
-- Start the backend:
-  ```bash
-  python manage.py runserver
-  ```
+
+#### Create and Activate Virtual Environment
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+# On Linux/Mac:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+```
+
+#### Install Python Dependencies
+```bash
+# Install all required packages
+pip install -r requirements.txt
+```
+
+#### Configure Environment Variables
+Create a `.env` file in the root directory:
+```bash
+# Database Configuration (if using local PostgreSQL)
+DATABASE_URL=postgresql://username:password@localhost:5432/database_name
+
+# Django Secret Key (generate a new one for production)
+SECRET_KEY=your-secret-key-here
+
+# Gemini API Key (for AI features)
+GEMINI_API_KEY=your-gemini-api-key-here
+```
+
+#### Set up Gemini API Key
+1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Add it to your `.env` file or set it in `core/models.py`:
+   ```python
+   GEMINI_AVAILABLE = True
+   GEMINI_API_KEY = "your-api-key-here"
+   ```
+   **⚠️ Never commit your real API key to public repositories!**
+
+#### Database Setup
+The project is configured to use Supabase PostgreSQL. If you want to use a local database:
+1. Update `DATABASES` in `smarttodo/settings.py`
+2. Run migrations:
+   ```bash
+   python manage.py migrate
+   ```
+
+#### Start the Backend Server
+```bash
+python manage.py runserver
+```
+The Django backend will be available at `http://localhost:8000`
 
 ### 3. Frontend Setup (Next.js/React)
-- Go to the frontend folder:
-  ```bash
-  cd frontend
-  npm install
-  # or
-  yarn install
-  ```
-- Set the API base URL if needed (in `.env.local`):
-  ```env
-  NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
-  ```
-- Start the frontend:
-  ```bash
-  npm run dev
-  # or
-  yarn dev
-  ```
+
+#### Navigate to Frontend Directory
+```bash
+cd frontend
+```
+
+#### Install Node.js Dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+#### Configure Environment Variables (Optional)
+Create `.env.local` in the frontend directory:
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+```
+
+#### Start the Frontend Development Server
+```bash
+npm run dev
+# or
+yarn dev
+```
+The frontend will be available at `http://localhost:3000`
 
 ### 4. Using the App
-- Open [http://localhost:3000](http://localhost:3000) for the frontend.
-- Open [http://localhost:8000/api/](http://localhost:8000/api/) for the backend API (Django REST Framework UI).
+- **Frontend**: Open [http://localhost:3000](http://localhost:3000)
+- **Backend API**: Open [http://localhost:8000/api/](http://localhost:8000/api/) (Django REST Framework UI)
 
 ## API Documentation
 
@@ -178,8 +219,76 @@ cd <project-folder>
 }
 ```
 
-## Security Note
-- **Never commit your real API keys to public repositories!**
-- For production, use environment variables or a secrets manager for your keys.
+## Development
 
-If you have any issues, check the logs or open an issue in the repository!
+### Running Tests
+```bash
+# Backend tests
+python manage.py test
+
+# Frontend tests
+cd frontend
+npm test
+```
+
+### Code Quality
+```bash
+# Backend linting
+pip install flake8
+flake8 .
+
+# Frontend linting
+cd frontend
+npm run lint
+```
+
+## Deployment
+
+### Backend Deployment
+1. Set `DEBUG = False` in `smarttodo/settings.py`
+2. Configure production database
+3. Set up environment variables
+4. Use Gunicorn for production:
+   ```bash
+   gunicorn smarttodo.wsgi:application
+   ```
+
+### Frontend Deployment
+1. Build the production version:
+   ```bash
+   cd frontend
+   npm run build
+   ```
+2. Deploy to Vercel, Netlify, or your preferred hosting service
+
+## Security Notes
+- **Never commit API keys or secrets to public repositories!**
+- Use environment variables for sensitive configuration
+- Set up proper CORS settings for production
+- Use HTTPS in production
+- Regularly update dependencies
+
+## Troubleshooting
+
+### Common Issues
+1. **Virtual Environment**: Always activate the virtual environment before running Django commands
+2. **Database Connection**: Ensure your PostgreSQL database is running and accessible
+3. **API Key**: Verify your Gemini API key is correctly set
+4. **Port Conflicts**: Make sure ports 3000 (frontend) and 8000 (backend) are available
+
+### Getting Help
+If you encounter issues:
+1. Check the console logs for error messages
+2. Verify all dependencies are installed correctly
+3. Ensure your environment variables are set properly
+4. Open an issue in the repository with detailed error information
+
+## Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
