@@ -21,22 +21,22 @@ A modern, full-stack Smart Todo app with advanced AI features, import/export, Go
 ## Screenshots of the UI
 
 ### Dashboard View
-![Dashboard view](./screenshot-2025-07-05-00-25-35.png)
+![Dashboard view](frontend/public/screenshot-2025-07-05-00-25-35.png)
 
 ### Add Task Modal
-![Add Task Modal](./screenshot-2025-07-05-00-25-46.png)
+![Add Task Modal](frontend/public/screenshot-2025-07-05-00-25-46.png)
 
 ### JSON Error Example (Django API UI)
-![JSON error example](./screenshot-2025-07-04-20-49-09.png)
+![JSON error example](frontend/public/screenshot-2025-07-04-20-49-09.png)
 
 ### AI Suggestion for Task
-![AI suggestion for task](./screenshot-2025-07-05-00-35-32.png)
+![AI suggestion for task](frontend/public/screenshot-2025-07-05-00-35-32.png)
 
 ### Context History Example 1
-![Context history 1](./screenshot-2025-07-05-00-37-46.png)
+![Context history 1](frontend/public/screenshot-2025-07-05-00-37-46.png)
 
 ### Context History Example 2
-![Context history 2](./screenshot-2025-07-05-00-38-39.png)
+![Context history 2](frontend/public/screenshot-2025-07-05-00-38-39.png)
 
 ## Setup Instructions
 
